@@ -110,7 +110,7 @@ export interface PublicUser {
 
 export type AssessmentStatus = 'draft' | 'in_review' | 'pending_approval' | 'final' | 'archived';
 
-export type Methodology = 'STRIDE' | 'PASTA' | 'OCTAVE';
+export type Methodology = 'STRIDE' | 'PASTA' | 'OCTAVE' | 'PROTOTYPE';
 
 export interface RiskMatrixConfig {
   likelihoodLabels: [string, string, string, string, string];

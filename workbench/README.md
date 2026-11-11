@@ -114,3 +114,15 @@ The **Designer** page hosts the ArchGuard prototype editor (`client/public/desig
 - The designer is framed on the same origin only. All other pages still refuse framing.
 
 **Not yet done (Phase 2 and 3):** the prototype's rule checks (`computeReview`, `computeThreats`) are not ported, so threat analysis still uses the original engine. The original Architecture editor is still present.
+
+## PROTOTYPE analysis method (Phase 2)
+
+The **PROTOTYPE** method ports the ArchGuard prototype's rule checks into the workbench engine (`shared/prototype-rules.ts`). New projects use it by default. It can be combined with STRIDE, PASTA and OCTAVE.
+
+Changes from the prototype, to meet the workbench's rules:
+- Only confirmed components and flows are checked.
+- An explicit "no" gives a confirmed finding. An unknown value gives a missing-evidence item. Generic scenarios are hypotheses.
+- Prototype control mappings (for example "NIST SP 800-53") are kept only as unverified references in each rationale. They are not approved control content.
+- Likelihood and impact come from the prototype's severity. The mapping is a default in `SEVERITY_RATING`, to be confirmed by the analyst team.
+
+Projects created before this change keep their existing methods. Select PROTOTYPE in the project settings to use it.

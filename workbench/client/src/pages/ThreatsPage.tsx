@@ -74,7 +74,7 @@ export function ThreatsPage() {
           <div className="card-head"><Cpu size={16} /><h2>{ENGINE_NAME}</h2><Badge tone="ok">operational</Badge><span className="small muted right">v{ENGINE_VERSION} · runs server-side</span></div>
           <div className="card-body stack">
             <div className="small">Methodologies: {data.project.methodologies.map((m) => <Badge key={m} tone="navy">{m}</Badge>)} <Link to=".." relative="path" className="small">change</Link></div>
-            <div className="small muted">STRIDE-per-element rules, PASTA attack-path analysis (entry points → critical assets over confirmed flows) and OCTAVE Allegro information-asset areas of concern. Re-running keeps analyst decisions for unchanged threats.</div>
+            <div className="small muted">PROTOTYPE: the ArchGuard rule checks on confirmed components and flows. STRIDE-per-element rules, PASTA attack-path analysis (entry points → critical assets over confirmed flows) and OCTAVE Allegro information-asset areas of concern. Re-running keeps analyst decisions for unchanged threats.</div>
             {!latest && <Callout tone="warn">Save a model version in the <Link to="../architecture">architecture editor</Link> first.</Callout>}
             {unconfirmed > 0 && <Callout tone="warn">{unconfirmed} unconfirmed element(s) in the working model will be excluded.</Callout>}
             {lastRun && latest && lastRun.modelVersion !== latest.version && <Callout tone="warn">The latest run used v{lastRun.modelVersion}; the newest version is v{latest.version}.</Callout>}
@@ -106,7 +106,7 @@ export function ThreatsPage() {
           <div className="card-head">
             <input type="search" placeholder="Search title, asset or category" value={q} onChange={(e) => setQ(e.target.value)} style={{ maxWidth: 280 }} />
             <select value={method} onChange={(e) => setMethod(e.target.value)} style={{ width: 150 }}>
-              <option value="all">All methods</option><option>STRIDE</option><option>PASTA</option><option>OCTAVE</option><option value="MANUAL">Analyst-authored</option>
+              <option value="all">All methods</option><option>STRIDE</option><option>PASTA</option><option>OCTAVE</option><option>PROTOTYPE</option><option value="MANUAL">Analyst-authored</option>
             </select>
             <span className="small muted right">{list.length} shown</span>
           </div>

@@ -48,7 +48,7 @@ export const projectCreateSchema = z.object({
   architectureVersion: str(60),
   reviewerId: str(80),
   reviewDate: date,
-  methodologies: z.array(z.enum(['STRIDE', 'PASTA', 'OCTAVE'])).max(3),
+  methodologies: z.array(z.enum(['STRIDE', 'PASTA', 'OCTAVE', 'PROTOTYPE'])).max(4),
   catalogIds: z.array(str(80)).max(20),
 });
 

@@ -328,7 +328,7 @@ export function buildReport(type: ReportType, d: ProjectData, users: PublicUser[
       evidenceSection(d), limitations(d), recommendations(d));
   } else if (type === 'threat_model') {
     sections.push(exec, methodology(d, catalogs), architectureSection(d));
-    for (const meth of ['STRIDE', 'PASTA', 'OCTAVE', 'MANUAL'] as const) {
+    for (const meth of ['STRIDE', 'PASTA', 'OCTAVE', 'PROTOTYPE', 'MANUAL'] as const) {
       const list = sortByRating(live.filter((t) => t.methodology === meth && t.classification !== 'missing_evidence'));
       if (!list.length) continue;
       sections.push({ heading: `${meth === 'MANUAL' ? 'Analyst-authored' : meth} threat scenarios`, blocks: [threatTable(d, list, `${meth} threats`), ...list.flatMap((t) => threatDetail(d, t))] });

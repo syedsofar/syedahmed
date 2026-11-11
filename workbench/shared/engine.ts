@@ -30,6 +30,8 @@ export const ENGINE_VERSION = '1.0.0';
 export const NODE_W = 140;
 export const NODE_H = 58;
 
+import { prototypeDrafts } from './prototype-rules';
+
 export type ThreatDraft = Omit<
   Threat,
   'id' | 'decision' | 'analystNotes' | 'evidenceRefs' | 'runId' | 'createdAt' | 'updatedAt' | 'updatedBy'
@@ -650,6 +652,7 @@ export function analyzeModel(model: ArchitectureModel, methods: Methodology[], m
   if (methods.includes('STRIDE')) drafts.push(...stride(v));
   if (methods.includes('PASTA')) drafts.push(...pasta(v));
   if (methods.includes('OCTAVE')) drafts.push(...octave(v));
+  if (methods.includes('PROTOTYPE')) drafts.push(...prototypeDrafts(model));
   const gaps = structuralGaps(v);
   const all = [...drafts, ...gaps].map((d) => ({ ...d, modelVersion }));
   return { drafts: all, skippedUnconfirmed: v.skipped, structuralGaps: gaps };

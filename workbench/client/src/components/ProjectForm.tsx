@@ -17,7 +17,7 @@ export interface ProjectFormValue {
 }
 
 export const emptyProjectForm = (): ProjectFormValue => ({
-  name: '', clientAlias: '', scope: '', architectureVersion: '', reviewerId: '', reviewDate: '', methodologies: ['STRIDE'], catalogIds: [],
+  name: '', clientAlias: '', scope: '', architectureVersion: '', reviewerId: '', reviewDate: '', methodologies: ['PROTOTYPE'], catalogIds: [],
 });
 
 export function useCatalogs() {
@@ -49,7 +49,7 @@ export function ProjectForm({ value, onChange, disabled }: { value: ProjectFormV
       <Field label="Review date"><input type="date" value={value.reviewDate} onChange={(e) => set('reviewDate', e.target.value)} disabled={disabled} /></Field>
       <Field label="Threat modelling methodologies">
         <div className="row gap wrap">
-          {(['STRIDE', 'PASTA', 'OCTAVE'] as Methodology[]).map((m) => (
+          {(['STRIDE', 'PASTA', 'OCTAVE', 'PROTOTYPE'] as Methodology[]).map((m) => (
             <label key={m} className="check"><input type="checkbox" checked={value.methodologies.includes(m)} onChange={() => set('methodologies', toggle(value.methodologies, m))} disabled={disabled} />{m}</label>
           ))}
         </div>

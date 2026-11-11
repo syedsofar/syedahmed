@@ -69,6 +69,12 @@ const tri = (v: string): Tri => ((TRI as readonly string[]).includes(v) ? (v as 
 const DESIGNER_ZONE_NOTE = 'designer.trust=';
 const SEC_PREFIX = 'designer.security.';
 const clip = (s: string, n: number) => s.slice(0, n);
+const FLOW_CLASSES = ['public', 'internal', 'confidential', 'restricted'] as const;
+/** The designer's flow "data" field is a sensitivity level (Public, Internal, Confidential, Restricted). */
+const classificationOf = (v: string | undefined) => {
+  const k = (v ?? '').trim().toLowerCase();
+  return (FLOW_CLASSES as readonly string[]).includes(k) ? (k as (typeof FLOW_CLASSES)[number]) : undefined;
+};
 
 /** Designer model -> canonical model, keeping canonical fields the designer does not own. */
 export function designerToCanonical(d: DesignerModel, catalog: CatalogItem[], base: ArchitectureModel): ArchitectureModel {
@@ -119,7 +125,7 @@ export function designerToCanonical(d: DesignerModel, catalog: CatalogItem[], ba
       port: prev?.port ?? '',
       encrypted: tri(f.encrypted),
       authenticated: tri(f.authenticated),
-      dataClassification: prev?.dataClassification ?? 'unknown',
+      dataClassification: classificationOf(f.data) ?? prev?.dataClassification ?? 'unknown',
       bidirectional: prev?.bidirectional ?? false,
       status: prev?.status ?? 'confirmed',
       source: { ...(prev?.source ?? { kind: 'manual' }), ...(note ? { note } : { note: undefined }) },
