@@ -105,15 +105,17 @@ workbench/
 
 **Not yet integrated from the ArchGuard prototype:** its heuristic review and STRIDE engine, its standalone canvas and editing screens, and its JSON/SVG/CSV exports. The workbench already has its own canvas, JSON export and report exports. The workbench's deterministic engine is the analysis source of truth. The prototype's checks are not used.
 
-## Designer (ArchGuard editor, Phase 1)
+## Architecture editor (ArchGuard designer)
 
-The **Designer** page hosts the ArchGuard prototype editor (`client/public/designer/`). It saves to the project's architecture model through the same API as the Architecture page. The threat analysis, versions and reports read that model.
+The **Architecture** page hosts the ArchGuard prototype editor (`client/public/designer/`). It replaces the original editor. It saves to the project's architecture model through the same API as the Architecture page. The threat analysis, versions and reports read that model.
 
 - A small bridge (`designer/bridge.js`) replaces the prototype's `localStorage` calls. The workbench sends the model in, and the bridge posts changes back.
 - `shared/designer.ts` converts between the two models. Designer-only fields are stored with a `designer.` prefix, so a round trip loses nothing. Analyst-entered fields the designer does not show are kept on save.
 - The designer is framed on the same origin only. All other pages still refuse framing.
 
-**Not yet done (Phase 2 and 3):** the prototype's rule checks (`computeReview`, `computeThreats`) are not ported, so threat analysis still uses the original engine. The original Architecture editor is still present.
+Versions (save, compare, restore), JSON export and JSON import are on the same page. Changes restored or imported from elsewhere reload the editor with the new model.
+
+The STRIDE, PASTA and OCTAVE engine is kept, alongside the PROTOTYPE method described below.
 
 ## PROTOTYPE analysis method (Phase 2)
 
