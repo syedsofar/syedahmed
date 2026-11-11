@@ -16,16 +16,18 @@ const app = express();
 app.disable('x-powered-by');
 app.set('trust proxy', 'loopback');
 
-app.use((_req, res, next) => {
+app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
+  // The designer editor is framed by the workbench on the same origin; everything else is never framed.
+  const sameOriginFrame = req.path.startsWith('/designer/');
+  res.setHeader('X-Frame-Options', sameOriginFrame ? 'SAMEORIGIN' : 'DENY');
   res.setHeader('Referrer-Policy', 'no-referrer');
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
   if (config.secureCookies) res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; object-src 'self' blob:; frame-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
+    `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; object-src 'self' blob:; frame-src 'self' blob:; connect-src 'self'; frame-ancestors ${sameOriginFrame ? "'self'" : "'none'"}; base-uri 'none'; form-action 'self'`,
   );
   next();
 });

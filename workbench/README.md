@@ -104,3 +104,13 @@ workbench/
 **Framework register.** `shared/frameworks.ts` lists the 18 sources you asked for, with role, version, official source, licence status and the stated scope where you gave one. The Control catalogs page shows the register. The register holds no control text. Each framework's version and source must be confirmed against the publisher before import. Licensed texts (ISO/IEC 27001 Annex A, SABSA, TOGAF, CIS) are imported through the versioned catalog import, where a different reviewer must approve them before use.
 
 **Not yet integrated from the ArchGuard prototype:** its heuristic review and STRIDE engine, its standalone canvas and editing screens, and its JSON/SVG/CSV exports. The workbench already has its own canvas, JSON export and report exports. The workbench's deterministic engine is the analysis source of truth. The prototype's checks are not used.
+
+## Designer (ArchGuard editor, Phase 1)
+
+The **Designer** page hosts the ArchGuard prototype editor (`client/public/designer/`). It saves to the project's architecture model through the same API as the Architecture page. The threat analysis, versions and reports read that model.
+
+- A small bridge (`designer/bridge.js`) replaces the prototype's `localStorage` calls. The workbench sends the model in, and the bridge posts changes back.
+- `shared/designer.ts` converts between the two models. Designer-only fields are stored with a `designer.` prefix, so a round trip loses nothing. Analyst-entered fields the designer does not show are kept on save.
+- The designer is framed on the same origin only. All other pages still refuse framing.
+
+**Not yet done (Phase 2 and 3):** the prototype's rule checks (`computeReview`, `computeThreats`) are not ported, so threat analysis still uses the original engine. The original Architecture editor is still present.

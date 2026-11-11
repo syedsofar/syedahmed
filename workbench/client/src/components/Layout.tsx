@@ -1,3 +1,4 @@
+import { Boxes } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useMatch, useNavigate } from 'react-router-dom';
 import {
@@ -54,6 +55,7 @@ export function Layout() {
               <div className="nav-group nav-project" title={proj?.name}>{proj ? proj.name : 'Assessment'}</div>
               {item(`/projects/${pid}`, <Info size={18} />, 'Overview', true)}
               {item(`/projects/${pid}/architecture`, <Network size={18} />, 'Architecture')}
+              {item(`/projects/${pid}/designer`, <Boxes size={18} />, 'Designer')}
               {item(`/projects/${pid}/imports`, <FileInput size={18} />, 'Imports & evidence')}
               {item(`/projects/${pid}/threats`, <ShieldAlert size={18} />, 'Threat model')}
               {item(`/projects/${pid}/controls`, <ListChecks size={18} />, 'Control review')}

@@ -4,7 +4,7 @@ import { defaultTypeFor, type CatalogItem, type ComponentCatalog } from '@shared
 
 // The catalog is loaded once per browser session and shared by every editor view.
 let cached: Promise<ComponentCatalog> | null = null;
-function loadCatalog(): Promise<ComponentCatalog> {
+export function loadCatalog(): Promise<ComponentCatalog> {
   if (!cached) {
     cached = api.get<ComponentCatalog>('/catalog/components').catch((e) => {
       cached = null;

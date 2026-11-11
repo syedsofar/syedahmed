@@ -14,6 +14,7 @@ import { ArchitecturePage } from './pages/ArchitecturePage';
 import { ImportsPage } from './pages/ImportsPage';
 import { ThreatsPage } from './pages/ThreatsPage';
 import { ControlsPage } from './pages/ControlsPage';
+import { DesignerPage } from './pages/DesignerPage';
 import { RisksPage } from './pages/RisksPage';
 import { ReportsPage } from './pages/ReportsPage';
 import { CatalogsPage } from './pages/CatalogsPage';
@@ -50,6 +51,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path="projects/:projectId" element={<ProjectScope />}>
                 <Route index element={<OverviewPage />} />
                 <Route path="architecture" element={<ArchitecturePage />} />
+                <Route path="designer" element={<DesignerPage />} />
                 <Route path="imports" element={<ImportsPage />} />
                 <Route path="threats" element={<ThreatsPage />} />
                 <Route path="controls" element={<ControlsPage />} />
