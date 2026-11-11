@@ -103,4 +103,4 @@ workbench/
 
 **Framework register.** `shared/frameworks.ts` lists the 18 sources you asked for, with role, version, official source, licence status and the stated scope where you gave one. The Control catalogs page shows the register. The register holds no control text. Each framework's version and source must be confirmed against the publisher before import. Licensed texts (ISO/IEC 27001 Annex A, SABSA, TOGAF, CIS) are imported through the versioned catalog import, where a different reviewer must approve them before use.
 
-**Not yet integrated from the ArchGuard prototype:** its heuristic review and STRIDE engine, its Draw.io-style editing tools, and its JSON/SVG/CSV exports. The workbench's deterministic engine is the analysis source of truth. The prototype's checks are not used.
+**Not yet integrated from the ArchGuard prototype:** its heuristic review and STRIDE engine, its standalone canvas and editing screens, and its JSON/SVG/CSV exports. The workbench already has its own canvas, JSON export and report exports. The workbench's deterministic engine is the analysis source of truth. The prototype's checks are not used.
