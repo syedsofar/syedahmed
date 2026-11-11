@@ -13,6 +13,7 @@ export const modelSchema = z.object({
   components: z.array(z.object({
     id: str(80), type: z.enum(COMPONENT_TYPES as [string, ...string[]]), name: str(120), x: coord, y: coord, status, source,
     properties: z.record(z.string().max(60), z.string().max(500)),
+    catalogRef: z.object({ id: str(120), name: str(200), group: str(60) }).optional(),
   })).max(500),
   flows: z.array(z.object({
     id: str(80), from: str(80), to: str(80), label: str(200), protocol: str(40), port: str(20),

@@ -44,9 +44,17 @@ beforeAll(async () => {
   throw new Error('server did not start');
 }, 30000);
 
-afterAll(() => {
-  proc?.kill();
-  fs.rmSync(dir, { recursive: true, force: true });
+afterAll(async () => {
+  // Wait for the server to exit before deleting its data directory, otherwise a
+  // pending debounced write can recreate files mid-removal (ENOTEMPTY).
+  if (proc && proc.exitCode === null) {
+    const exited = new Promise((resolve) => proc!.once('exit', resolve));
+    proc.kill();
+    await exited;
+  }
+  for (let i = 0; i < 5; i++) {
+    try { fs.rmSync(dir, { recursive: true, force: true }); return; } catch { await new Promise((r) => setTimeout(r, 200)); }
+  }
 });
 
 describe('API security and workflow', () => {

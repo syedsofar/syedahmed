@@ -3,6 +3,7 @@ import { BookMarked, Upload, CheckCircle2, Archive } from 'lucide-react';
 import { api } from '../lib/api';
 import { useAuth } from '../lib/auth';
 import { Badge, Callout, Empty, Modal, fmtDate, useToast } from '../components/ui';
+import { FrameworkRegister } from '../components/FrameworkRegister';
 import { CONTROL_TAGS, FRAMEWORK_LABELS, validateCatalogImport } from '@shared/controls';
 import type { ControlCatalog } from '@shared/types';
 
@@ -43,6 +44,7 @@ export function CatalogsPage() {
         <div><h1>Control catalogs</h1><div className="sub">Versioned control content for NCA ECC, SAMA CSF, NIST CSF and ISO/IEC 27001. Catalogs are imported as drafts, approved by a different reviewer (segregation of duties), and only approved versions can be used in assessments.</div></div>
         <div className="actions">{can('catalog:import') && <button className="btn btn-primary" onClick={() => setImporting({ text: '', errors: [] })}><Upload size={16} /> Import catalog version</button>}</div>
       </div>
+      <FrameworkRegister />
       <Callout tone="warn">Demonstration excerpts are short, paraphrased, domain-level references for exercising the workflow. They are not authoritative control text. Import the official, firm-approved catalog content before any client use.</Callout>
 
       <section className="card" style={{ marginTop: 16 }}>

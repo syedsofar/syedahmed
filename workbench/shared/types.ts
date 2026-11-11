@@ -41,6 +41,8 @@ export interface ArchComponent {
   source: SourceRef;
   /** Property values keyed by the property schema for this component type. */
   properties: Record<string, string>;
+  /** Component library item this element was created from, if any. */
+  catalogRef?: { id: string; name: string; group: string };
 }
 
 export type DataClassification = 'unknown' | 'public' | 'internal' | 'confidential' | 'restricted';

@@ -12,6 +12,8 @@ import { COMPONENTS, COMPONENT_TYPES, ZONES } from '@shared/schema';
 import { NODE_H, NODE_W } from '@shared/engine';
 import { diffModels } from '@shared/diff';
 import type { ArchComponent, ArchitectureModel, ComponentType, DataFlow, ModelVersion, ProjectData } from '@shared/types';
+import { defaultTypeFor, type CatalogItem } from '@shared/catalog';
+import { CatalogPalette } from '../components/CatalogPalette';
 import { MODEL_SCHEMA } from '@shared/types';
 
 type Drag =
@@ -135,12 +137,13 @@ export function ArchitecturePage() {
     onFlowDown: (_e: React.PointerEvent, f: DataFlow) => setSel({ kind: 'flow', id: f.id }),
   };
 
-  const addComponent = (type: ComponentType, x?: number, y?: number) => {
+  const addComponent = (type: ComponentType, x?: number, y?: number, catalog?: CatalogItem) => {
     const wrap = wrapRef.current!;
     const c: ArchComponent = {
-      id: uid('c'), type, name: `New ${COMPONENTS[type].label}`,
+      id: uid('c'), type, name: catalog ? catalog.name : `New ${COMPONENTS[type].label}`,
       x: snap(x ?? wrap.scrollLeft / scale + 60 + Math.random() * 60), y: snap(y ?? wrap.scrollTop / scale + 60 + Math.random() * 60),
       status: 'confirmed', source: { kind: 'manual' }, properties: {},
+      ...(catalog ? { catalogRef: { id: catalog.id, name: catalog.name, group: catalog.groupId } } : {}),
     };
     update((m) => ({ ...m, components: [...m.components, c] }));
     setSel({ kind: 'component', id: c.id });
@@ -257,6 +260,7 @@ export function ArchitecturePage() {
               <span className="palette-swatch" style={{ background: COMPONENTS[t].color }}>{COMPONENTS[t].short}</span>{COMPONENTS[t].label}
             </div>
           ))}
+          <CatalogPalette editable={editable} onAdd={(item) => addComponent(defaultTypeFor(item), undefined, undefined, item)} />
           {editable && <button className="btn btn-sm" style={{ width: '100%', marginTop: 6 }} onClick={addZone}><SquareDashed size={14} /> Add trust zone</button>}
         </div>
 

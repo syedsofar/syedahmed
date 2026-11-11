@@ -16,6 +16,7 @@ export const config = {
   host: process.env.HOST ?? '127.0.0.1',
   dataDir: process.env.SAWB_DATA_DIR ?? path.join(here, 'data'),
   clientDist: path.join(here, '..', 'client', 'dist'),
+  componentCatalogFile: path.join(here, '..', 'catalog', 'components.json'),
   /** 64 hex chars (32 bytes). Required in production. */
   dataKeyHex: process.env.SAWB_DATA_KEY,
   sessionIdleMinutes: Number(process.env.SAWB_SESSION_IDLE_MINUTES ?? 30),

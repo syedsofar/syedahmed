@@ -18,6 +18,8 @@ import { getAiStatus, AI_ADAPTERS } from './ai';
 import { analyzeModel, ENGINE_NAME, ENGINE_VERSION, mergeRun } from '../shared/engine';
 import { canSetStatus, validateCatalogImport } from '../shared/controls';
 import { canonicalJson, defaultRiskMatrix, riskBand } from '../shared/schema';
+import { FRAMEWORKS } from '../shared/frameworks';
+import type { ComponentCatalog } from '../shared/catalog';
 import { buildReport, REPORT_TYPES, type ReportType } from '../shared/report';
 import type { ArchitectureModel, ProjectData, Risk, Threat } from '../shared/types';
 import { MODEL_SCHEMA } from '../shared/types';
@@ -87,6 +89,24 @@ api.post('/auth/password', requireAuth, h((req, res) => {
 
 // Everything below requires an authenticated session + CSRF token for writes.
 api.use(requireAuth);
+
+// ------------------------------------------------------------------ reference content
+
+let componentCatalogCache: ComponentCatalog | null = null;
+function loadComponentCatalog(): ComponentCatalog {
+  if (!componentCatalogCache) {
+    componentCatalogCache = JSON.parse(fs.readFileSync(config.componentCatalogFile, 'utf8')) as ComponentCatalog;
+  }
+  return componentCatalogCache;
+}
+
+api.get('/catalog/components', (_req, res) => {
+  res.json(loadComponentCatalog());
+});
+
+api.get('/frameworks', (_req, res) => {
+  res.json(FRAMEWORKS);
+});
 
 // ------------------------------------------------------------------ users
 

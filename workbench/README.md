@@ -96,3 +96,11 @@ workbench/
 * Sessions are held in memory, so a restart signs everyone out. SSO (SAML/OIDC) and MFA are not built in yet.
 * Draw.io import reads the first page only. PDF and image diagrams require manual transcription until an approved AI adapter is added.
 * Rule-engine rules are intentionally conservative. Extend `COMPONENT_RULES` in `shared/engine.ts` to add organisation-specific threat patterns.
+
+## Component library and framework register
+
+**Component library.** The architecture editor's palette includes a searchable library of 2,549 components in 24 groups (cloud services, network devices, identity, data stores, third parties and others). Clicking an item adds it to the canvas, with its name kept as `catalogRef`. Each item gets a default model type from its group, which the Inspector can change. The library is served to signed-in users at `GET /api/catalog/components`. Its data, provenance and licensing notes are in `catalog/README.md`. The vendor icons are included for internal use only, as agreed. 309 Azure entries have no icon in the source material and show a generated tile.
+
+**Framework register.** `shared/frameworks.ts` lists the 18 sources you asked for, with role, version, official source, licence status and the stated scope where you gave one. The Control catalogs page shows the register. The register holds no control text. Each framework's version and source must be confirmed against the publisher before import. Licensed texts (ISO/IEC 27001 Annex A, SABSA, TOGAF, CIS) are imported through the versioned catalog import, where a different reviewer must approve them before use.
+
+**Not yet integrated from the ArchGuard prototype:** its heuristic review and STRIDE engine, its Draw.io-style editing tools, and its JSON/SVG/CSV exports. The workbench's deterministic engine is the analysis source of truth. The prototype's checks are not used.
